@@ -134,6 +134,7 @@ public class MappingLibrary {
             throw new IllegalStateException("could not find property: "
                 + _properties[i]);
 
+          m.setAccessible(true);
           _methods[i] = m;
         }
 
@@ -142,7 +143,7 @@ public class MappingLibrary {
         } catch (Exception ex) {
           throw new IllegalStateException(
               "error invoking property reader: obj=" + value + " property="
-                  + _properties[i]);
+                  + _properties[i], ex);
         }
       }
       return value;

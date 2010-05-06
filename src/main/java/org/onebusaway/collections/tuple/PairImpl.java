@@ -6,7 +6,7 @@ package org.onebusaway.collections.tuple;
 import java.io.Serializable;
 import java.util.NoSuchElementException;
 
-public final class PairImpl<T> implements Pair<T>, Serializable {
+final class PairImpl<T> implements Pair<T>, Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -17,22 +17,6 @@ public final class PairImpl<T> implements Pair<T>, Serializable {
   public PairImpl(T first, T second) {
     _first = first;
     _second = second;
-  }
-
-  public static <T> PairImpl<T> createPair(T a, T b) {
-    return new PairImpl<T>(a, b);
-  }
-
-  public static <T extends Comparable<T>> PairImpl<T> createSortedPair(
-      PairImpl<T> pair) {
-    return createSortedPair(pair.getFirst(), pair.getSecond());
-  }
-
-  public static <T extends Comparable<T>> PairImpl<T> createSortedPair(T a, T b) {
-    if (a.compareTo(b) <= 0)
-      return new PairImpl<T>(a, b);
-    else
-      return new PairImpl<T>(b, a);
   }
 
   public T getFirst() {
@@ -53,9 +37,9 @@ public final class PairImpl<T> implements Pair<T>, Serializable {
 
   public T getOpposite(T element) {
     if (Tuples.equals(_first, element))
-      return _first;
-    if (Tuples.equals(_second, element))
       return _second;
+    if (Tuples.equals(_second, element))
+      return _first;
     throw new NoSuchElementException();
   }
 
