@@ -15,11 +15,6 @@
  */
 package org.onebusaway.collections;
 
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -34,7 +29,7 @@ public class MappingLibrary {
   public static <T1, T2> List<T2> map(Iterable<T1> values, String property,
       Class<T2> propertyType) {
     List<T2> mappedValues = new ArrayList<T2>();
-    SimplePropertyQuery query = new SimplePropertyQuery(property);
+    PropertyPathExpression query = new PropertyPathExpression(property);
     for (T1 value : values)
       mappedValues.add((T2) query.invoke(value));
     return mappedValues;
@@ -45,7 +40,7 @@ public class MappingLibrary {
       String property, Class<K> keyType) {
 
     Map<K, V> byKey = new HashMap<K, V>();
-    SimplePropertyQuery query = new SimplePropertyQuery(property);
+    PropertyPathExpression query = new PropertyPathExpression(property);
 
     for (V value : values) {
       K key = (K) query.invoke(value);
@@ -75,7 +70,7 @@ public class MappingLibrary {
       Class<CIMPL> collectionType) {
 
     Map<K, C> byKey = new HashMap<K, C>();
-    SimplePropertyQuery query = new SimplePropertyQuery(property);
+    PropertyPathExpression query = new PropertyPathExpression(property);
 
     for (V value : values) {
 
@@ -96,57 +91,5 @@ public class MappingLibrary {
     }
 
     return byKey;
-  }
-
-  /*****************************************************************************
-   * Private Static Classes
-   ****************************************************************************/
-
-  private static final class SimplePropertyQuery {
-
-    private String[] _properties;
-
-    private Method[] _methods;
-
-    public SimplePropertyQuery(String query) {
-      _properties = query.split("\\.");
-      _methods = new Method[_properties.length];
-    }
-
-    public Object invoke(Object value) {
-      for (int i = 0; i < _properties.length; i++) {
-        Method m = _methods[i];
-        if (m == null) {
-          try {
-            BeanInfo info = Introspector.getBeanInfo(value.getClass());
-            for (PropertyDescriptor pd : info.getPropertyDescriptors()) {
-              if (pd.getName().equals(_properties[i])) {
-                m = pd.getReadMethod();
-                break;
-              }
-            }
-          } catch (IntrospectionException ex) {
-            throw new IllegalStateException("error introspecting bean class: "
-                + value.getClass(), ex);
-          }
-
-          if (m == null)
-            throw new IllegalStateException("could not find property: "
-                + _properties[i]);
-
-          m.setAccessible(true);
-          _methods[i] = m;
-        }
-
-        try {
-          value = m.invoke(value);
-        } catch (Exception ex) {
-          throw new IllegalStateException(
-              "error invoking property reader: obj=" + value + " property="
-                  + _properties[i], ex);
-        }
-      }
-      return value;
-    }
   }
 }
