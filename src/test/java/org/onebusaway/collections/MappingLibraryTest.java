@@ -21,19 +21,19 @@ public class MappingLibraryTest {
     List<Pair<String>> asList = Arrays.asList(Tuples.pair("a", "b"),
         Tuples.pair("c", "d"), Tuples.pair("e", "f"));
 
-    List<String> values = MappingLibrary.map(asList, "first", String.class);
+    List<String> values = MappingLibrary.map(asList, "first");
     assertEquals(3, values.size());
     assertEquals("a", values.get(0));
     assertEquals("c", values.get(1));
     assertEquals("e", values.get(2));
 
-    values = MappingLibrary.map(asList, "second", String.class);
+    values = MappingLibrary.map(asList, "second");
     assertEquals(3, values.size());
     assertEquals("b", values.get(0));
     assertEquals("d", values.get(1));
     assertEquals("f", values.get(2));
   }
-
+  
   @SuppressWarnings("unchecked")
   @Test
   public void testMapToValue() {
@@ -44,12 +44,12 @@ public class MappingLibraryTest {
     List<Pair<String>> asList = Arrays.asList(p1, p2, p3);
 
     Map<String, Pair<String>> values = MappingLibrary.mapToValue(asList,
-        "first", String.class);
+        "first");
     assertEquals(2, values.size());
     assertEquals(p3, values.get("a"));
     assertEquals(p2, values.get("b"));
 
-    values = MappingLibrary.mapToValue(asList, "second", String.class);
+    values = MappingLibrary.mapToValue(asList, "second");
     assertEquals(2, values.size());
     assertEquals(p2, values.get("1"));
     assertEquals(p3, values.get("2"));
@@ -67,12 +67,12 @@ public class MappingLibraryTest {
     List<Pair<String>> asList = Arrays.asList(p1, p2, p3, p4);
 
     Map<String, List<Pair<String>>> values = MappingLibrary.mapToValueList(
-        asList, "first", String.class);
+        asList, "first");
     assertEquals(2, values.size());
     assertEquals(Arrays.asList(p1, p3), values.get("a"));
     assertEquals(Arrays.asList(p2, p4), values.get("b"));
 
-    values = MappingLibrary.mapToValueList(asList, "second", String.class);
+    values = MappingLibrary.mapToValueList(asList, "second");
     assertEquals(2, values.size());
     assertEquals(Arrays.asList(p1, p2, p4), values.get("1"));
     assertEquals(Arrays.asList(p3), values.get("2"));
@@ -89,12 +89,12 @@ public class MappingLibraryTest {
     List<Pair<String>> asList = Arrays.asList(p1, p2, p3, p4);
 
     Map<String, Set<Pair<String>>> values = MappingLibrary.mapToValueSet(
-        asList, "first", String.class);
+        asList, "first");
     assertEquals(2, values.size());
     assertEquals(set(p1, p3), values.get("a"));
     assertEquals(set(p2), values.get("b"));
 
-    values = MappingLibrary.mapToValueSet(asList, "second", String.class);
+    values = MappingLibrary.mapToValueSet(asList, "second");
     assertEquals(2, values.size());
     assertEquals(set(p1, p2), values.get("1"));
     assertEquals(set(p3), values.get("2"));

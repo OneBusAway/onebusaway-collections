@@ -1,5 +1,5 @@
 /*
- * Copyright 2008 Brian Ferris
+ * Copyright 2008-2010 Brian Ferris
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -17,6 +17,15 @@ package org.onebusaway.collections.tuple;
 
 import java.io.Serializable;
 
+/**
+ * An implementation class for the {@link T2} interface. To create an instance
+ * of {@link T2}, please use the {@link Tuples#tuple(Object, Object)} factory
+ * method.
+ * 
+ * @author bdferris
+ * @see T2
+ * @see Tuples#tuple(Object, Object)
+ */
 final class T2Impl<S1, S2> implements T2<S1, S2>, Serializable {
 
   private static final long serialVersionUID = 1L;
