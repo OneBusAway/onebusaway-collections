@@ -84,12 +84,16 @@ public final class PropertyPathExpression {
    * 
    * @param sourceValueType the class of objects that will be passed in calls to
    *          {@link #invoke(Object)}
+   * @return the final return type of the evaluated path expression
    * @throws IllegalStateException on introspection errors
    */
-  public void initialize(Class<?> sourceValueType) {
+  public Class<?> initialize(Class<?> sourceValueType) {
 
-    if (_methods != null)
-      return;
+    if (_methods != null) {
+      if( _methods.length == 0)
+        return sourceValueType;
+      return _methods[_methods.length-1].getReturnType();
+    }
 
     _methods = new Method[_properties.length];
 
@@ -119,6 +123,8 @@ public final class PropertyPathExpression {
 
       sourceValueType = m.getReturnType();
     }
+    
+    return sourceValueType;
   }
 
   /**
