@@ -147,17 +147,6 @@ public class MappingLibrary {
   }
 
   /**
-   * This method is kept for backwards compatibility, and a more concise version
-   * can be found in {@link #mapToValueSet(Iterable, String)}
-   */
-  @SuppressWarnings("unchecked")
-  public static <K, V> Map<K, Set<V>> mapToValueSet(Iterable<V> values,
-      String property, Class<K> keyType) {
-    return mapToValueCollection(values, property, keyType,
-        new HashSet<V>().getClass());
-  }
-
-  /**
    * Construct a {@link Map} from a set of values where the key for each value
    * is the result of the evaluation of a {@link PropertyPathExpression} on each
    * value. Each key maps to a collection of values that all mapped to that same
@@ -198,15 +187,5 @@ public class MappingLibrary {
     }
 
     return byKey;
-  }
-
-  /**
-   * This method is kept for backwards compatibility, and a more concise version
-   * can be found in {@link #mapToValueCollection(Iterable, String, Class)}
-   */
-  public static <K, V, C extends Collection<V>, CIMPL extends C> Map<K, C> mapToValueCollection(
-      Iterable<V> values, String property, Class<K> keyType,
-      Class<CIMPL> collectionType) {
-    return mapToValueCollection(values, property, collectionType);
   }
 }
