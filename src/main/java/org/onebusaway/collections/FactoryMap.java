@@ -168,7 +168,7 @@ public class FactoryMap<K, V> extends HashMap<K, V> {
 
     private Class<? extends V> _valueClass;
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public ClassInstanceFactory(Class valueClass) {
       _valueClass = valueClass;
     }
