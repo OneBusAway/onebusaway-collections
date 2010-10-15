@@ -32,29 +32,7 @@ public class IterableAdapter<FROM, TO> implements Iterable<TO>, Serializable {
   }
 
   public Iterator<TO> iterator() {
-    return new IteratorAdapter(_source.iterator());
-  }
-
-  private class IteratorAdapter implements Iterator<TO> {
-
-    private Iterator<FROM> _it;
-
-    public IteratorAdapter(Iterator<FROM> it) {
-      _it = it;
-    }
-
-    public boolean hasNext() {
-      return _it.hasNext();
-    }
-
-    public TO next() {
-      return _adapter.adapt(_it.next());
-    }
-
-    public void remove() {
-      _it.remove();
-    }
-
+    return new IteratorAdapter<FROM,TO>(_source.iterator(),_adapter);
   }
 
 }
