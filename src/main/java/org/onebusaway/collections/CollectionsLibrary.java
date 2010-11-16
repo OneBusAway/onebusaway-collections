@@ -1,5 +1,6 @@
 package org.onebusaway.collections;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,4 +13,7 @@ public class CollectionsLibrary {
     return set;
   }
 
+  public static final boolean isEmpty(Collection<?> c) {
+    return c == null || c.isEmpty();
+  }
 }
