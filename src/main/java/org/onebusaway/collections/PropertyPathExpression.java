@@ -15,10 +15,6 @@
  */
 package org.onebusaway.collections;
 
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
 /**
@@ -90,9 +86,9 @@ public final class PropertyPathExpression {
   public Class<?> initialize(Class<?> sourceValueType) {
 
     if (_methods != null) {
-      if( _methods.length == 0)
+      if (_methods.length == 0)
         return sourceValueType;
-      return _methods[_methods.length-1].getReturnType();
+      return _methods[_methods.length - 1].getReturnType();
     }
 
     _methods = new Method[_properties.length];
@@ -100,17 +96,13 @@ public final class PropertyPathExpression {
     for (int i = 0; i < _properties.length; i++) {
 
       Method m = null;
-
+      String name = _properties[i];
+      String methodName = "get" + name.substring(0, 1).toUpperCase()
+          + name.substring(1);
       try {
-        BeanInfo info = Introspector.getBeanInfo(sourceValueType);
-        for (PropertyDescriptor pd : info.getPropertyDescriptors()) {
-          if (pd.getName().equals(_properties[i])) {
-            m = pd.getReadMethod();
-            break;
-          }
-        }
-      } catch (IntrospectionException ex) {
-        throw new IllegalStateException("error introspecting bean class: "
+        m = sourceValueType.getMethod(methodName);
+      } catch (Exception ex) {
+        throw new IllegalStateException("error introspecting class: "
             + sourceValueType, ex);
       }
 
@@ -123,7 +115,7 @@ public final class PropertyPathExpression {
 
       sourceValueType = m.getReturnType();
     }
-    
+
     return sourceValueType;
   }
 
