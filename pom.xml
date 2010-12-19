@@ -8,15 +8,15 @@
 
     <groupId>org.onebusaway</groupId>
     <artifactId>onebusaway-collections</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5-SNAPSHOT</version>
 
     <name>onebusaway-collections</name>
     <description>A library with a number of convenient methods for working with collections</description>
 
     <scm>
-        <connection>scm:svn:http://onebusaway.googlecode.com/svn/onebusaway-collections/tags/onebusaway-collections-1.0.4</connection>
-        <developerConnection>scm:svn:https://onebusaway.googlecode.com/svn/onebusaway-collections/tags/onebusaway-collections-1.0.4</developerConnection>
-        <url>http://code.google.com/p/onebusaway/source/browse/#svn/onebusaway-collections/tags/onebusaway-collections-1.0.4</url>
+        <connection>scm:svn:http://onebusaway.googlecode.com/svn/onebusaway-collections/trunk</connection>
+        <developerConnection>scm:svn:https://onebusaway.googlecode.com/svn/onebusaway-collections/trunk</developerConnection>
+        <url>http://code.google.com/p/onebusaway/source/browse/#svn/onebusaway-collections/trunk</url>
     </scm>
 
     <dependencies>
