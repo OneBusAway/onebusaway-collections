@@ -8,7 +8,7 @@ onebusaway-collections
 
 Documentation
 
-  You can access the {{{apidoc/index.html}latest Javadoc for the library}}.
+  You can access the {{{./apidoc/index.html}latest Javadoc for the library}}.
 
 Using in Maven
 
