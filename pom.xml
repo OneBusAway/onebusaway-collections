@@ -1,30 +1,40 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <artifactId>onebusaway</artifactId>
-        <groupId>org.onebusaway</groupId>
-        <version>1.0.7</version>
-    </parent>
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>onebusaway</artifactId>
     <groupId>org.onebusaway</groupId>
-    <artifactId>onebusaway-collections</artifactId>
-    <version>1.0.5-SNAPSHOT</version>
+    <version>1.1.0</version>
+    <relativePath>../onebusaway</relativePath>
+  </parent>
 
-    <name>onebusaway-collections</name>
-    <description>A library with a number of convenient methods for working with collections</description>
+  <groupId>org.onebusaway</groupId>
+  <artifactId>onebusaway-collections</artifactId>
+  <version>1.1.0-SNAPSHOT</version>
 
-    <scm>
-        <connection>scm:svn:http://onebusaway.googlecode.com/svn/onebusaway-collections/trunk</connection>
-        <developerConnection>scm:svn:https://onebusaway.googlecode.com/svn/onebusaway-collections/trunk</developerConnection>
-        <url>http://code.google.com/p/onebusaway/source/browse/#svn/onebusaway-collections/trunk</url>
-    </scm>
+  <name>onebusaway-collections</name>
+  <description>A library with a number of convenient methods for working with collections</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.4</version>
-        </dependency>
-    </dependencies>
+  <scm>
+    <connection>scm:svn:http://onebusaway.googlecode.com/svn/onebusaway-collections/trunk</connection>
+    <developerConnection>scm:svn:https://onebusaway.googlecode.com/svn/onebusaway-collections/trunk</developerConnection>
+    <url>http://code.google.com/p/onebusaway/source/browse/#svn/onebusaway-collections/trunk</url>
+  </scm>
+
+  <distributionManagement>
+    <!-- Even though we specify this in the parent pom, we need to specify it here to have full control over the url -->
+    <site>
+      <id>${site_id}</id>
+      <url>${site_url}</url>
+    </site>
+  </distributionManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.4</version>
+    </dependency>
+  </dependencies>
 
 </project>
