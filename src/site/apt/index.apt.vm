@@ -1,8 +1,8 @@
 onebusaway-collections
 
-  The <<<onebusaway-collections>>> module provides a set of Common collection and utility classes used by a number of OneBusAway modules.
+  The <<<onebusaway-collections>>> module provides a set of common collection and utility classes used by a number of OneBusAway modules.
 
-  <<Latest Version:>> ${currentVersion}
+  <<Current Version:>> ${currentVersion}
 
   Details on all releases can be found in the {{{./release-notes.html}Release Notes}}.
 
