@@ -48,6 +48,7 @@
           <header>src/license/header.txt</header>
           <excludes>
             <exclude>src/site/**</exclude>
+            <exclude>LICENSE.txt</exclude>
           </excludes>
           <strictCheck>true</strictCheck>
           <properties>
