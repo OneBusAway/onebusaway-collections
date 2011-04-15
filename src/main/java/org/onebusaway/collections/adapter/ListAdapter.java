@@ -3,6 +3,16 @@ package org.onebusaway.collections.adapter;
 import java.util.AbstractList;
 import java.util.List;
 
+/**
+ * Create an adapted {@link List} instance that adapts a list of type FROM to
+ * type TO using a {@link IAdapter} instance. The adapted list will be immutable
+ * but will reflect changes to the underlying list.
+ * 
+ * @author bdferris
+ * 
+ * @param <FROM>
+ * @param <TO>
+ */
 public class ListAdapter<FROM, TO> extends AbstractList<TO> {
 
   private final List<FROM> _source;

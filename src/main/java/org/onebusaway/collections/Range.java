@@ -1,5 +1,11 @@
 package org.onebusaway.collections;
 
+/**
+ * A simple, mutable double-precision range class for tracking a min and max
+ * value.
+ * 
+ * @author bdferris
+ */
 public class Range {
 
   private double _min = Double.POSITIVE_INFINITY;
