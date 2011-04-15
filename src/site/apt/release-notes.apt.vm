@@ -3,6 +3,8 @@ Release Notes
 * ${currentVersion}
 
   * Documentation tweaks
+
+  * Addition of ListAdapter and Range classes
   
   * Full Documentation: {{${site_base_url}/onebusaway-collections/${currentVersion}/}}
 
