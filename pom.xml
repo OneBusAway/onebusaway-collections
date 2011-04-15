@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>onebusaway</artifactId>
@@ -10,16 +9,16 @@
 
   <groupId>org.onebusaway</groupId>
   <artifactId>onebusaway-collections</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.1</version>
 
   <name>onebusaway-collections</name>
   <description>A library with a number of convenient methods for working with collections</description>
 
 
   <scm>
-    <connection>scm:svn:http://onebusaway.googlecode.com/svn/onebusaway-collections/trunk</connection>
-    <developerConnection>scm:svn:https://onebusaway.googlecode.com/svn/onebusaway-collections/trunk</developerConnection>
-    <url>http://code.google.com/p/onebusaway/source/browse/#svn/onebusaway-collections/trunk</url>
+    <connection>scm:svn:http://onebusaway.googlecode.com/svn/onebusaway-collections/tags/onebusaway-collections-1.1.1</connection>
+    <developerConnection>scm:svn:https://onebusaway.googlecode.com/svn/onebusaway-collections/tags/onebusaway-collections-1.1.1</developerConnection>
+    <url>http://code.google.com/p/onebusaway/source/browse/#svn/onebusaway-collections/tags/onebusaway-collections-1.1.1</url>
   </scm>
 
   <distributionManagement>
