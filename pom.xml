@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>onebusaway</artifactId>
@@ -13,6 +14,7 @@
 
   <name>onebusaway-collections</name>
   <description>A library with a number of convenient methods for working with collections</description>
+
 
   <scm>
     <connection>scm:svn:http://onebusaway.googlecode.com/svn/onebusaway-collections/trunk</connection>
@@ -35,5 +37,33 @@
       <version>4.4</version>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.mycila.maven-license-plugin</groupId>
+        <artifactId>maven-license-plugin</artifactId>
+        <version>1.9.0</version>
+        <configuration>
+          <header>src/license/header.txt</header>
+          <excludes>
+            <exclude>src/site/**</exclude>
+          </excludes>
+          <strictCheck>true</strictCheck>
+          <properties>
+            <email>bdferris@onebusaway.org</email>
+            <year>2011</year>
+          </properties>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
