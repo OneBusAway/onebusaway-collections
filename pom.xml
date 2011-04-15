@@ -52,8 +52,9 @@
           </excludes>
           <strictCheck>true</strictCheck>
           <properties>
-            <email>bdferris@onebusaway.org</email>
-            <year>2011</year>
+            <license.name>Brian Ferris</license.name>
+            <license.email>bdferris@onebusaway.org</license.email>
+            <license.year>2011</license.year>
           </properties>
         </configuration>
         <executions>
