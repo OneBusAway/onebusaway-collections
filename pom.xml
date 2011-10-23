@@ -14,7 +14,6 @@
   <name>onebusaway-collections</name>
   <description>A library with a number of convenient methods for working with collections</description>
 
-
   <scm>
     <connection>scm:svn:http://onebusaway.googlecode.com/svn/onebusaway-collections/trunk</connection>
     <developerConnection>scm:svn:https://onebusaway.googlecode.com/svn/onebusaway-collections/trunk</developerConnection>

@@ -2,6 +2,8 @@ Release Notes
 
 * ${currentVersion}
 
+  * Add additional constructors for {{{./apidocs/org/onebusaway/collections/Range.html}Range}}
+
   * Full Documentation: {{${site_base_url}/onebusaway-collections/${currentVersion}/}}
   
 * 1.1.1
