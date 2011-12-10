@@ -1,5 +1,6 @@
 /**
  * Copyright (C) 2011 Brian Ferris <bdferris@onebusaway.org>
+ * Copyright (C) 2011 Google, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -117,6 +118,32 @@ public final class PropertyPathExpression {
     }
 
     return sourceValueType;
+  }
+
+  /**
+   * Returns the type of the parent class containing the property to be
+   * evaluated. For simple property path expressions containing just one
+   * property, the parent class will be equal to the "sourceValueType"
+   * parameter. For compound property path expressions, the parent class is
+   * equal to the class from which the property value will ultimately be
+   * accessed.
+   * 
+   * @param sourceValueType
+   * @return
+   */
+  public Class<?> getParentType(Class<?> sourceValueType) {
+    initialize(sourceValueType);
+    if (_methods.length < 2) {
+      return sourceValueType;
+    }
+    return _methods[_methods.length - 2].getReturnType();
+  }
+
+  /**
+   * @return the last property in the compound property path expression
+   */
+  public String getLastProperty() {
+    return _properties[_properties.length - 1];
   }
 
   /**

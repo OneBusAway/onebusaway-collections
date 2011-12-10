@@ -70,25 +70,59 @@ public class PropertyPathExpressionTest {
 
     }
 
-    assertEquals(new Double(3.14), PropertyPathExpression.evaluate(obj,
-        "a.doubleValue"));
+    assertEquals(new Double(3.14),
+        PropertyPathExpression.evaluate(obj, "a.doubleValue"));
 
   }
 
-  public static class A {
+  @Test
+  public void testGetParentType() {
+    PropertyPathExpression exp = new PropertyPathExpression("a");
+    assertEquals(A.class, exp.getParentType(A.class));
 
-    private int _depth;
+    exp = new PropertyPathExpression("a.a");
+    assertEquals(A.class, exp.getParentType(A.class));
 
-    public A() {
-      _depth = 0;
+    exp = new PropertyPathExpression("b.a");
+    assertEquals(B.class, exp.getParentType(A.class));
+
+    exp = new PropertyPathExpression("a.b.a");
+    assertEquals(B.class, exp.getParentType(A.class));
+  }
+
+  public static class Base {
+
+    private final int _depth;
+
+    public Base() {
+      this(0);
     }
 
-    public A(int depth) {
+    public Base(int depth) {
       _depth = depth;
     }
 
     public int getDepth() {
       return _depth;
+    }
+
+    public A getA() {
+      return new A(_depth + 1);
+    }
+
+    public B getB() {
+      return new B(_depth + 1);
+    }
+  }
+
+  public static class A extends Base {
+
+    public A() {
+      super();
+    }
+
+    public A(int depth) {
+      super(depth);
     }
 
     public String getStringValue() {
@@ -103,12 +137,19 @@ public class PropertyPathExpressionTest {
       return 3.14;
     }
 
-    public A getA() {
-      return new A(_depth + 1);
-    }
-
     public A getNullA() {
       return null;
+    }
+  }
+
+  public static class B extends Base {
+
+    public B() {
+      super();
+    }
+
+    public B(int depth) {
+      super(depth);
     }
   }
 }
