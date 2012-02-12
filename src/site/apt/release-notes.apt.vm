@@ -2,9 +2,17 @@ Release Notes
 
 * ${currentVersion}
 
-  * Add additional constructors for {{{./apidocs/org/onebusaway/collections/Range.html}Range}}
+  * Migration to GitHub.
+
+  * Add additional methods to {{{./apidocs/index.html?org/onebusaway/collections/PropertyPathExpression.html}PropertyPathExpression}}.
 
   * Full Documentation: {{${site_base_url}/onebusaway-collections/${currentVersion}/}}
+  
+* 1.1.2
+
+  * Add additional constructors for {{{./apidocs/org/onebusaway/collections/Range.html}Range}}
+
+  * Full Documentation: {{${site_base_url}/onebusaway-collections/1.1.2/}}
   
 * 1.1.1
 
