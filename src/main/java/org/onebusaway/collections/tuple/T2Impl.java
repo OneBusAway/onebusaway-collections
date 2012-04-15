@@ -1,5 +1,6 @@
 /**
  * Copyright (C) 2011 Brian Ferris <bdferris@onebusaway.org>
+ * Copyright (C) 2012 Google, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,5 +68,10 @@ final class T2Impl<S1, S2> implements T2<S1, S2>, Serializable {
     T2Impl<?, ?> other = (T2Impl<?, ?>) obj;
     return Tuples.equals(_first, other._first)
         && Tuples.equals(_second, other._second);
+  }
+  
+  @Override
+  public String toString() {
+    return _first + ", " + _second;
   }
 }
