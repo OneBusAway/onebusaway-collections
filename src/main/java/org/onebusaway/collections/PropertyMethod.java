@@ -41,4 +41,6 @@ public interface PropertyMethod {
    */
   public Object invoke(Object target) throws IllegalArgumentException,
       IllegalAccessException, InvocationTargetException;
+
+  public Class<?> getReturnType();
 }

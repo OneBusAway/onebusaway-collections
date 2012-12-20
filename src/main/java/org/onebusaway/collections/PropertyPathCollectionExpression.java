@@ -15,7 +15,6 @@
  */
 package org.onebusaway.collections;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -127,33 +126,9 @@ public final class PropertyPathCollectionExpression {
   private PropertyMethod getPropertyMethod(Class<?> valueType, int methodIndex) {
     PropertyMethod method = _methods[methodIndex];
     if (method == null) {
-      method = getPropertyMethod(valueType, _properties[methodIndex]);
+      method = PropertyMethods.getPropertyMethod(valueType, _properties[methodIndex], _resolver);
       _methods[methodIndex] = method;
     }
     return method;
-  }
-
-  private PropertyMethod getPropertyMethod(Class<?> valueType, String name) {
-    if (_resolver != null) {
-      PropertyMethod method = _resolver.getPropertyMethod(valueType, name);
-      if (method != null) {
-        return method;
-      }
-    }
-    String methodName = "get" + name.substring(0, 1).toUpperCase()
-        + name.substring(1);
-    Method method = null;
-    try {
-      method = valueType.getMethod(methodName);
-    } catch (Exception ex) {
-      throw new IllegalStateException(
-          "error introspecting class: " + valueType, ex);
-    }
-
-    if (method == null)
-      throw new IllegalStateException("could not find property: " + name);
-
-    method.setAccessible(true);
-    return new PropertyMethodImpl(method);
   }
 }

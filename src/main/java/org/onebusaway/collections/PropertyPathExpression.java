@@ -16,7 +16,6 @@
  */
 package org.onebusaway.collections;
 
-import java.lang.reflect.Method;
 
 /**
  * Simple support for Java bean property path expression parsing and evaluation.
@@ -41,7 +40,9 @@ public final class PropertyPathExpression {
 
   private String[] _properties;
 
-  private transient Method[] _methods = null;
+  private transient PropertyMethod[] _methods = null;
+
+  private PropertyMethodResolver _resolver = null;
 
   /**
    * A static convenience method for evaluating a property path expression on a
@@ -63,6 +64,10 @@ public final class PropertyPathExpression {
    */
   public PropertyPathExpression(String query) {
     _properties = query.split("\\.");
+  }
+  
+  public void setPropertyMethodResolver(PropertyMethodResolver resolver) {
+    _resolver = resolver;
   }
 
   public String getPath() {
@@ -92,29 +97,11 @@ public final class PropertyPathExpression {
       return _methods[_methods.length - 1].getReturnType();
     }
 
-    _methods = new Method[_properties.length];
+    _methods = new PropertyMethod[_properties.length];
 
     for (int i = 0; i < _properties.length; i++) {
-
-      Method m = null;
-      String name = _properties[i];
-      String methodName = "get" + name.substring(0, 1).toUpperCase()
-          + name.substring(1);
-      try {
-        m = sourceValueType.getMethod(methodName);
-      } catch (Exception ex) {
-        throw new IllegalStateException("error introspecting class: "
-            + sourceValueType, ex);
-      }
-
-      if (m == null)
-        throw new IllegalStateException("could not find property: "
-            + _properties[i]);
-
-      m.setAccessible(true);
-      _methods[i] = m;
-
-      sourceValueType = m.getReturnType();
+      _methods[i] = PropertyMethods.getPropertyMethod(sourceValueType, _properties[i], _resolver);
+      sourceValueType = _methods[i].getReturnType();
     }
 
     return sourceValueType;
@@ -159,7 +146,7 @@ public final class PropertyPathExpression {
       initialize(value.getClass());
 
     for (int i = 0; i < _properties.length; i++) {
-      Method m = _methods[i];
+      PropertyMethod m = _methods[i];
 
       try {
         value = m.invoke(value);
@@ -170,4 +157,5 @@ public final class PropertyPathExpression {
     }
     return value;
   }
+
 }

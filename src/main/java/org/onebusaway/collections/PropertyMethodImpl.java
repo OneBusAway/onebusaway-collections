@@ -38,4 +38,9 @@ class PropertyMethodImpl implements PropertyMethod {
       IllegalAccessException, InvocationTargetException {
     return _method.invoke(value);
   }
+
+  @Override
+  public Class<?> getReturnType() {
+    return _method.getReturnType();
+  }
 }
