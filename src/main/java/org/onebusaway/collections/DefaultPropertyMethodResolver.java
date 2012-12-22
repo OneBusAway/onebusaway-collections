@@ -17,35 +17,24 @@ package org.onebusaway.collections;
 
 import java.lang.reflect.Method;
 
-/**
- * Generic methods for working with {@link PropertyMethod} objects.
- * 
- * @author bdferris
- * 
- */
-public class PropertyMethods {
+public class DefaultPropertyMethodResolver implements PropertyMethodResolver {
 
-  public static PropertyMethod getPropertyMethod(Class<?> valueType,
-      String name, PropertyMethodResolver resolver) {
-    if (resolver != null) {
-      PropertyMethod method = resolver.getPropertyMethod(valueType, name);
-      if (method != null) {
-        return method;
-      }
-    }
-    String methodName = "get" + name.substring(0, 1).toUpperCase()
-        + name.substring(1);
+  @Override
+  public PropertyMethod getPropertyMethod(Class<?> targetType,
+      String propertyName) {
+    String methodName = "get" + propertyName.substring(0, 1).toUpperCase()
+        + propertyName.substring(1);
     Method method = null;
     try {
-      method = valueType.getMethod(methodName);
+      method = targetType.getMethod(methodName);
     } catch (Exception ex) {
-      throw new IllegalStateException(
-          "error introspecting class: " + valueType, ex);
+      throw new IllegalStateException("error introspecting class: "
+          + targetType, ex);
     }
-
-    if (method == null)
-      throw new IllegalStateException("could not find property: " + name);
-
+    if (method == null) {
+      throw new IllegalStateException("could not find property \""
+          + propertyName + "\" for type " + targetType.getName());
+    }
     method.setAccessible(true);
     return new PropertyMethodImpl(method);
   }

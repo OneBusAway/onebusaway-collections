@@ -16,7 +16,6 @@
  */
 package org.onebusaway.collections;
 
-
 /**
  * Simple support for Java bean property path expression parsing and evaluation.
  * 
@@ -42,7 +41,7 @@ public final class PropertyPathExpression {
 
   private transient PropertyMethod[] _methods = null;
 
-  private PropertyMethodResolver _resolver = null;
+  private PropertyMethodResolver _resolver = new DefaultPropertyMethodResolver();
 
   /**
    * A static convenience method for evaluating a property path expression on a
@@ -65,7 +64,7 @@ public final class PropertyPathExpression {
   public PropertyPathExpression(String query) {
     _properties = query.split("\\.");
   }
-  
+
   public void setPropertyMethodResolver(PropertyMethodResolver resolver) {
     _resolver = resolver;
   }
@@ -100,7 +99,7 @@ public final class PropertyPathExpression {
     _methods = new PropertyMethod[_properties.length];
 
     for (int i = 0; i < _properties.length; i++) {
-      _methods[i] = PropertyMethods.getPropertyMethod(sourceValueType, _properties[i], _resolver);
+      _methods[i] = _resolver.getPropertyMethod(sourceValueType, _properties[i]);
       sourceValueType = _methods[i].getReturnType();
     }
 

@@ -41,7 +41,7 @@ public final class PropertyPathCollectionExpression {
 
   private PropertyMethod[] _methods = null;
 
-  private PropertyMethodResolver _resolver = null;
+  private PropertyMethodResolver _resolver = new DefaultPropertyMethodResolver();
 
   public static void evaluate(Object target, String query,
       Collection<Object> values) {
@@ -126,7 +126,7 @@ public final class PropertyPathCollectionExpression {
   private PropertyMethod getPropertyMethod(Class<?> valueType, int methodIndex) {
     PropertyMethod method = _methods[methodIndex];
     if (method == null) {
-      method = PropertyMethods.getPropertyMethod(valueType, _properties[methodIndex], _resolver);
+      method = _resolver.getPropertyMethod(valueType, _properties[methodIndex]);
       _methods[methodIndex] = method;
     }
     return method;
