@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.onebusaway.collections.beans.PropertyPathExpression;
+
 /**
  * A number of functional-programming-inspired convenience methods for mapping
  * one set of values to another.

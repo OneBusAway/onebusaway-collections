@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.onebusaway.collections;
+package org.onebusaway.collections.beans;
 
 /**
  * A strategy interface for resolving {@link PropertyMethod} instances for a

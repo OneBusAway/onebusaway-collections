@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.onebusaway.collections;
+package org.onebusaway.collections.beans;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+import org.onebusaway.collections.beans.PropertyPathExpression;
 
 public class PropertyPathExpressionTest {
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.onebusaway.collections;
+package org.onebusaway.collections.beans;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
+import org.onebusaway.collections.beans.PropertyPathCollectionExpression;
 
 public class PropertyPathCollectionExpressionTest {
 

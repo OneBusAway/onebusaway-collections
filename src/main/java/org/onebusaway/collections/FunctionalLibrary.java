@@ -18,6 +18,8 @@ package org.onebusaway.collections;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.onebusaway.collections.beans.PropertyPathExpression;
+
 public final class FunctionalLibrary {
   private FunctionalLibrary() {
 
