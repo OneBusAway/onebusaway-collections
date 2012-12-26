@@ -89,12 +89,20 @@ public final class PropertyPathCollectionExpression {
    *          stored.
    */
   public void invoke(Object value, Collection<Object> results) {
-    invoke(value, 0, results);
+    invoke(null, value, 0, new ValueResultCollector(results));
   }
 
-  private void invoke(Object value, int methodIndex, Collection<Object> results) {
+  public void invokeReturningFullResult(Object value,
+      Collection<PropertyInvocationResult> results) {
+    invoke(null, value, 0, new FullResultCollector(results));
+  }
+
+  private void invoke(Object parent, Object value, int methodIndex,
+      ResultCollector collector) {
     if (methodIndex == _methods.length) {
-      results.add(value);
+      String propertyName = _properties.length == 0 ? null
+          : _properties[_properties.length - 1];
+      collector.addResult(parent, propertyName, value);
       return;
     }
     if (value == null) {
@@ -111,15 +119,15 @@ public final class PropertyPathCollectionExpression {
     if (result instanceof Iterable<?>) {
       Iterable<?> iterable = (Iterable<?>) result;
       for (Object child : iterable) {
-        invoke(child, methodIndex + 1, results);
+        invoke(value, child, methodIndex + 1, collector);
       }
     } else if (result instanceof Object[]) {
       Object[] values = (Object[]) result;
       for (Object child : values) {
-        invoke(child, methodIndex + 1, results);
+        invoke(value, child, methodIndex + 1, collector);
       }
     } else {
-      invoke(result, methodIndex + 1, results);
+      invoke(value, result, methodIndex + 1, collector);
     }
   }
 
@@ -130,5 +138,37 @@ public final class PropertyPathCollectionExpression {
       _methods[methodIndex] = method;
     }
     return method;
+  }
+
+  private interface ResultCollector {
+    public void addResult(Object parent, String propertyName, Object value);
+  }
+
+  private static class ValueResultCollector implements ResultCollector {
+
+    private final Collection<Object> values;
+
+    public ValueResultCollector(Collection<Object> values) {
+      this.values = values;
+    }
+
+    @Override
+    public void addResult(Object parent, String propertyName, Object value) {
+      values.add(value);
+    }
+  }
+
+  private static class FullResultCollector implements ResultCollector {
+
+    private final Collection<PropertyInvocationResult> results;
+
+    public FullResultCollector(Collection<PropertyInvocationResult> results) {
+      this.results = results;
+    }
+
+    @Override
+    public void addResult(Object parent, String propertyName, Object value) {
+      results.add(new PropertyInvocationResult(parent, propertyName, value));
+    }
   }
 }

@@ -140,13 +140,19 @@ public final class PropertyPathExpression {
    * @throws IllegalStateException on introspection and evaluation errors
    */
   public Object invoke(Object value) {
+    return invokeReturningFullResult(value).value;
+  }
 
+  public PropertyInvocationResult invokeReturningFullResult(Object value) {
     if (_methods == null)
       initialize(value.getClass());
 
+    Object parent = null;
+    String propertyName = null;
     for (int i = 0; i < _properties.length; i++) {
+      parent = value;
+      propertyName = _properties[i];
       PropertyMethod m = _methods[i];
-
       try {
         value = m.invoke(value);
       } catch (Exception ex) {
@@ -154,7 +160,6 @@ public final class PropertyPathExpression {
             + value + " property=" + _properties[i], ex);
       }
     }
-    return value;
+    return new PropertyInvocationResult(parent, propertyName, value);
   }
-
 }

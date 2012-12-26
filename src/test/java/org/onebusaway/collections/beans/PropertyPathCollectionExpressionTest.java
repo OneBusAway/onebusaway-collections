@@ -16,6 +16,7 @@
 package org.onebusaway.collections.beans;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +41,37 @@ public class PropertyPathCollectionExpressionTest {
         PropertyPathCollectionExpression.evaluate(a, "values.value"));
     assertEquals(Arrays.asList("c", "a", "d"),
         PropertyPathCollectionExpression.evaluate(a, "values.values.value"));
+  }
 
+  @Test
+  public void testFullResult() {
+    TestObject a = new TestObject("a");
+    TestObject b = new TestObject("b");
+    a.setValues(Arrays.asList(b));
+
+    {
+      PropertyPathCollectionExpression expression = new PropertyPathCollectionExpression(
+          "values");
+      List<PropertyInvocationResult> results = new ArrayList<PropertyInvocationResult>();
+      expression.invokeReturningFullResult(a, results);
+      assertEquals(1, results.size());
+      PropertyInvocationResult result = results.get(0);
+      assertSame(a, result.parent);
+      assertEquals("values", result.propertyName);
+      assertSame(b, result.value);
+    }
+
+    {
+      PropertyPathCollectionExpression expression = new PropertyPathCollectionExpression(
+          "values.value");
+      List<PropertyInvocationResult> results = new ArrayList<PropertyInvocationResult>();
+      expression.invokeReturningFullResult(a, results);
+      assertEquals(1, results.size());
+      PropertyInvocationResult result = results.get(0);
+      assertSame(b, result.parent);
+      assertEquals("value", result.propertyName);
+      assertSame("b", result.value);
+    }
   }
 
   public static class TestObject {
