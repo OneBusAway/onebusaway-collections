@@ -2,6 +2,10 @@ Release Notes
 
 * ${currentVersion}
 
+  * Full Documentation: {{${site_base_url}/onebusaway-collections/${currentVersion}/}}
+  
+* 1.2.0
+
   * Move property-path expression code to new {{{./apidocs/org/onebusaway/collections/beans/package-summary.html}org.onebusaway.collections.beans}}
     package.
     
@@ -11,7 +15,7 @@ Release Notes
   * Introduce {{{./apidocs/org/onebusaway/collections/beans/PropertyMethodResolver.html}PropertyMethodResolver}}: provides support for custom
     resolution of property methods in property-path expressions.
   
-  * Full Documentation: {{${site_base_url}/onebusaway-collections/${currentVersion}/}}
+  * Full Documentation: {{${site_base_url}/onebusaway-collections/1.2.0/}}
   
 * 1.1.3
 
