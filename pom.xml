@@ -7,7 +7,7 @@
   </parent>
 
   <artifactId>onebusaway-collections</artifactId>
-  <version>1.2.1</version>
+  <version>1.2.2-SNAPSHOT</version>
 
   <name>onebusaway-collections</name>
   <description>A library with a number of convenient methods for working with collections</description>
