@@ -1,48 +1,75 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>onebusaway</artifactId>
-    <groupId>org.onebusaway</groupId>
-    <version>1.1.7</version>
-  </parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>onebusaway</artifactId>
+		<groupId>org.onebusaway</groupId>
+		<version>1.1.7</version>
+	</parent>
 
-  <artifactId>onebusaway-collections</artifactId>
-  <version>1.2.2-SNAPSHOT</version>
+	<artifactId>onebusaway-collections</artifactId>
+	<version>1.2.2-SNAPSHOT</version>
 
-  <name>onebusaway-collections</name>
-  <description>A library with a number of convenient methods for working with collections</description>
-  <url>https://github.com/OneBusAway/onebusaway-collections/wiki/</url>
+	<name>onebusaway-collections</name>
+	<description>A library with a number of convenient methods for working with collections</description>
+	<url>https://github.com/OneBusAway/onebusaway-collections/wiki/</url>
 
-  <scm>
-    <connection>scm:git:http://github.com/OneBusAway/onebusaway-collections.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/OneBusAway/onebusaway-collections.git</developerConnection>
-    <url>http://github.com/OneBusAway/onebusaway-collections</url>
-  </scm>
-  
-  <issueManagement>
-    <system>GitHub</system>
-    <url>https://github.com/OneBusAway/onebusaway-collections/issues</url>
-  </issueManagement>
-  
-  <distributionManagement>
-    <!-- Even though we specify this in the parent pom, we need to specify it here to have full control over the url -->
-    <site>
-      <id>${site_id}</id>
-      <url>${site_url}</url>
-    </site>
-  </distributionManagement>
+	<scm>
+		<connection>scm:git:http://github.com/OneBusAway/onebusaway-collections.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/OneBusAway/onebusaway-collections.git</developerConnection>
+		<url>http://github.com/OneBusAway/onebusaway-collections</url>
+	</scm>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.4</version>
-    </dependency>
-	<dependency>
-	    <groupId>io.github.classgraph</groupId>
-	    <artifactId>classgraph</artifactId>
-	    <version>4.8.105</version>
-	</dependency>
-  </dependencies>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/OneBusAway/onebusaway-collections/issues</url>
+	</issueManagement>
+
+	<repositories>
+		<repository>
+			<id>repo.camsys-apps.com</id>
+			<url>https://repo.camsys-apps.com/third-party/</url>
+		</repository>
+		<repository>
+			<id>releases-camsys-public-repo</id>
+			<url>https://repo.camsys-apps.com/releases/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>snapshots-camsys-public-repo</id>
+			<url>https://repo.camsys-apps.com/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<distributionManagement>
+		<site>
+			<id>${site_id}</id>
+			<url>${site_deployment_base}/onebusaway-gtfs-modules/${project.version}</url>
+		</site>
+	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.classgraph</groupId>
+			<artifactId>classgraph</artifactId>
+			<version>4.8.105</version>
+		</dependency>
+	</dependencies>
 
 </project>
