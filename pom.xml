@@ -55,7 +55,7 @@
 	<distributionManagement>
 		<site>
 			<id>${site_id}</id>
-			<url>${site_deployment_base}/onebusaway-gtfs-modules/${project.version}</url>
+			<url>${site_deployment_base}/onebusaway-collections/${project.version}</url>
 		</site>
 	</distributionManagement>
 
