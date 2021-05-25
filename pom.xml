@@ -52,13 +52,19 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	<distributionManagement>
-		<site>
-			<id>${site_id}</id>
-			<url>${site_deployment_base}/onebusaway-collections/${project.version}</url>
-		</site>
-	</distributionManagement>
 
+	<distributionManagement>
+		<repository>
+			<id>releases-camsys-public-repo</id>
+			<name>Camsys Public Release Repo</name>
+			<url>s3://repo.camsys-apps.com/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots-camsys-public-repo</id>
+			<name>Camsys Public Snapshot Repo</name>
+			<url>s3://repo.camsys-apps.com/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<build>
 		<plugins>
