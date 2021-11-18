@@ -39,7 +39,7 @@ public class DefaultPropertyMethodResolver implements PropertyMethodResolver {
     try {
     	if(targetType.isInterface()) {
         	ScanResult scanResult = new ClassGraph()
-        			.acceptPackages("org.onebusaway.gtfs")
+        			.acceptPackages("org.onebusaway")
         			.enableClassInfo()
         			.scan();
 
