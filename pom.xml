@@ -53,11 +53,16 @@
   </repositories>
 
   <distributionManagement>
-    <!-- Even though we specify this in the parent pom, we need to specify it here to have full control over the url -->
-    <site>
-      <id>${site_id}</id>
-      <url>${site_url}</url>
-    </site>
+    <repository>
+      <id>releases-camsys-public-repo</id>
+      <name>Camsys Public Release Repo</name>
+      <url>s3://repo.camsys-apps.com/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshots-camsys-public-repo</id>
+      <name>Camsys Public Snapshot Repo</name>
+      <url>s3://repo.camsys-apps.com/snapshots/</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <dependencies>
@@ -97,6 +102,18 @@
         </executions>
       </plugin>
     </plugins>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ssh</artifactId>
+        <version>3.3.4</version>
+      </extension>
+      <extension>
+        <groupId>com.github.ottogroupsolutionprovider</groupId>
+        <artifactId>aws-maven</artifactId>
+        <version>6.0.1</version>
+      </extension>
+    </extensions>
   </build>
 
 </project>
