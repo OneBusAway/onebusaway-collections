@@ -17,7 +17,9 @@ package org.onebusaway.collections.beans;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
@@ -25,6 +27,7 @@ import io.github.classgraph.ScanResult;
 
 public class DefaultPropertyMethodResolver implements PropertyMethodResolver {
 
+	private static Map<String, List<Method>> interfaceMethodsByKey = new HashMap();
   private ClassGraph classScanner = new ClassGraph();
 
   @Override
@@ -38,20 +41,7 @@ public class DefaultPropertyMethodResolver implements PropertyMethodResolver {
     Method method = null;
     try {
     	if(targetType.isInterface()) {
-        	ScanResult scanResult = new ClassGraph()
-        			.acceptPackages("org.onebusaway")
-        			.enableClassInfo()
-        			.scan();
-
-        	List<Method> methods = new ArrayList<Method>();
-        	for (ClassInfo ci : scanResult.getClassesImplementing(targetType.getCanonicalName())) {
-        		try {
-            		methods.add(Class.forName(ci.getName()).getMethod(methodName));
-        		} catch(Exception e) {
-        			continue;
-        		}
-        	}	
-        	
+				List<Method> methods = getCachedInterfaceMethods(targetType, propertyName, methodName);
         	if(methods.size() == 1)
         		method = methods.get(0);
         	else
@@ -70,4 +60,35 @@ public class DefaultPropertyMethodResolver implements PropertyMethodResolver {
     method.setAccessible(true);
     return new PropertyMethodImpl(method);
   }
+
+
+	private List<Method> getCachedInterfaceMethods(Class<?> targetType, String propertyName, String methodName) {
+		String key = hash(targetType, propertyName);
+		if (interfaceMethodsByKey.containsKey(key)) {
+			return interfaceMethodsByKey.get(key);
+		}
+
+		ScanResult scanResult = new ClassGraph()
+						.acceptPackages("org.onebusaway")
+						.enableClassInfo()
+						.scan();
+
+		List<Method> methods = new ArrayList<Method>();
+		for (ClassInfo ci : scanResult.getClassesImplementing(targetType.getCanonicalName())) {
+			try {
+				methods.add(Class.forName(ci.getName()).getMethod(methodName));
+			} catch(Exception e) {
+				continue;
+			}
+		}
+		interfaceMethodsByKey.put(key, methods);
+
+		return methods;
+	}
+
+	private String hash(Class<?> targetType, String propertyName) {
+		return targetType.getName() + "." + propertyName;
+	}
+
+
 }
