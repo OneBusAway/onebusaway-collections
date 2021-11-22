@@ -28,6 +28,14 @@ import io.github.classgraph.ScanResult;
 public class DefaultPropertyMethodResolver implements PropertyMethodResolver {
 
 	private static Map<String, List<Method>> interfaceMethodsByKey = new HashMap();
+	private static Map<String, String> interfaceToImplMap;
+	static {
+		// TODO inject these somehow
+		interfaceToImplMap = new HashMap<>();
+		interfaceToImplMap.put("org.onebusaway.gtfs.model.StopLocation", "org.onebusaway.gtfs.model.Stop");
+		interfaceToImplMap.put("org.onebusaway.transit_data_federation.services.transit_graph.StopTimeEntry",
+						"org.onebusaway.transit_data_federation.impl.transit_graph.StopTimeEntryImpl");
+	}
   private ClassGraph classScanner = new ClassGraph();
 
   @Override
@@ -44,9 +52,13 @@ public class DefaultPropertyMethodResolver implements PropertyMethodResolver {
 				List<Method> methods = getCachedInterfaceMethods(targetType, propertyName, methodName);
         	if(methods.size() == 1)
         		method = methods.get(0);
-        	else
-        	    throw new IllegalStateException("Ambiguous implementation set for interface: "
-        	              + targetType + " potentials: " + methods);
+        	else {
+						throw new IllegalStateException("Ambiguous implementation set for interface: "
+										+ targetType + " /"
+										+ methodName
+										+ " with potentials: " + methods
+										+ " and " + interfaceToImplMap.keySet() + " known interface mappings");
+					}
     	} else
         	method = targetType.getMethod(methodName);
     } catch (Exception ex) {
@@ -76,7 +88,9 @@ public class DefaultPropertyMethodResolver implements PropertyMethodResolver {
 		List<Method> methods = new ArrayList<Method>();
 		for (ClassInfo ci : scanResult.getClassesImplementing(targetType.getCanonicalName())) {
 			try {
-				methods.add(Class.forName(ci.getName()).getMethod(methodName));
+				if (matches(ci.getName(), targetType)) {
+					methods.add(Class.forName(ci.getName()).getMethod(methodName));
+				}
 			} catch(Exception e) {
 				continue;
 			}
@@ -84,6 +98,16 @@ public class DefaultPropertyMethodResolver implements PropertyMethodResolver {
 		interfaceMethodsByKey.put(key, methods);
 
 		return methods;
+	}
+
+
+	private boolean matches(String reflectedTypeName, Class<?> targetType) {
+		String targetTypeName = targetType.getName();
+		if (interfaceToImplMap.containsKey(targetTypeName)) {
+			String implName = interfaceToImplMap.get(targetTypeName);
+			return implName.equals(reflectedTypeName);
+		}
+		return targetTypeName.equals(reflectedTypeName);
 	}
 
 	private String hash(Class<?> targetType, String propertyName) {
