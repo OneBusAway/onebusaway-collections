@@ -27,16 +27,24 @@ import io.github.classgraph.ScanResult;
 
 public class DefaultPropertyMethodResolver implements PropertyMethodResolver {
 
+	private static final String OBA_IFACE_PATH = "org.onebusaway.transit_data_federation.services.transit_graph.";
+	private static final String OBA_IMPL_PATH = "org.onebusaway.transit_data_federation.impl.transit_graph.";
 	private static Map<String, List<Method>> interfaceMethodsByKey = new HashMap();
 	private static Map<String, String> interfaceToImplMap;
 	static {
 		// TODO inject these somehow
 		interfaceToImplMap = new HashMap<>();
+		// support GTFS interface corner case
 		interfaceToImplMap.put("org.onebusaway.gtfs.model.StopLocation", "org.onebusaway.gtfs.model.Stop");
-		interfaceToImplMap.put("org.onebusaway.transit_data_federation.services.transit_graph.StopTimeEntry",
-						"org.onebusaway.transit_data_federation.impl.transit_graph.StopTimeEntryImpl");
+		// support OBA interfaces
+		String[] entryInterfaces = {"AgencyEntry", "BlockConfigurationEntry", "BlockEntry", "BlockStopTimeEntry",
+						"BlockTripEntry", "FrequencyBlockStopTimeEntry", "FrequencyEntry", "RouteCollectionEntry",
+						"RouteEntry", "StopEntry", "StopTimeEntry", "TripEntry"};
+		for (String interfaceName : entryInterfaces) {
+			interfaceToImplMap.put(OBA_IFACE_PATH + interfaceName,
+							OBA_IMPL_PATH + interfaceName + "Impl");
+		}
 	}
-  private ClassGraph classScanner = new ClassGraph();
 
   @Override
   public PropertyMethod getPropertyMethod(Class<?> targetType,
@@ -113,6 +121,5 @@ public class DefaultPropertyMethodResolver implements PropertyMethodResolver {
 	private String hash(Class<?> targetType, String propertyName) {
 		return targetType.getName() + "." + propertyName;
 	}
-
 
 }
