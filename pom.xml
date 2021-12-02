@@ -7,7 +7,7 @@
   </parent>
 
   <artifactId>onebusaway-collections</artifactId>
-  <version>1.2.8-SNAPSHOT</version>
+  <version>1.2.8</version>
 
   <name>onebusaway-collections</name>
   <description>A library with a number of convenient methods for working with collections</description>
@@ -17,7 +17,7 @@
     <connection>scm:git:http://github.com/OneBusAway/onebusaway-collections.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/OneBusAway/onebusaway-collections.git</developerConnection>
     <url>http://github.com/OneBusAway/onebusaway-collections</url>
-    <tag>HEAD</tag>
+    <tag>onebusaway-collections-1.2.8</tag>
   </scm>
   
   <issueManagement>
